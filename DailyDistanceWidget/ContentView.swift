@@ -26,7 +26,7 @@ struct ContentView: View {
     @State var authState = AuthorisationState.authorising
     
     @State var distance = 0.0
-    @State var distanceStats = [(date: Date, distance: Double)]()
+    @State var distanceStats = [DistanceData]()
     
     var body: some View {
         
@@ -55,9 +55,11 @@ struct ContentView: View {
                                 ForEach(distanceStats, id: \.date) {stat in
                                     HStack {
                                         Text(stat.date.description)
-                                        Text(String(stat.distance))
+                                        Text(stat.distance.description)
                                     }
                                 }
+                                CumDistanceGraph(dayDistancesByDate: distanceStats)
+                                    .frame(width: 200, height: 200)
                             }
                                 
                         case .notAuthorised:
@@ -162,7 +164,7 @@ struct ContentView: View {
         query.initialResultsHandler = {
             query, results, error in
             
-            var stats = [(Date, Double)]()
+            var stats = [DistanceData]()
             
             guard let statsCollection = results else {
                 // Perform proper error handling here
@@ -178,8 +180,8 @@ struct ContentView: View {
                     let date = statistics.startDate
                     let value = quantity.doubleValue(for: HKUnit.meter())
                     
-                    // Call a custom method to plot each data point.
-                    stats.append((date,value))
+                    stats.append(DistanceData(date: date, distance: Measurement(value: value, unit: UnitLength.meters)))
+                   
                     }
             }
             
@@ -192,40 +194,6 @@ struct ContentView: View {
         return query
     }
     
-    
-//    func activityDistance(_ startDate:NSDate, endDate:NSDate, anchorDate:NSDate, completion: @escaping (Array<NSObject>, NSError?) -> ()) {
-//
-//        let type = HKSampleType.quantityType(forIdentifier: HKQuantityTypeIdentifier.distanceWalkingRunning)
-//        let interval = NSDateComponents()
-//        interval.hour = 1
-//
-//        let predicate = HKQuery.predicateForSamples(withStart: startDate as Date, end: endDate as Date, options: .strictEndDate)
-//        let query = HKStatisticsCollectionQuery(quantityType: type!, quantitySamplePredicate: predicate, options: [.cumulativeSum], anchorDate: anchorDate as Date, intervalComponents:interval as DateComponents)
-//
-//        query.initialResultsHandler = { query, results, error in
-//          if let myResults = results{
-//            var distanceArray: [NSObject] = []
-//            myResults.enumerateStatistics(from: startDate as Date, to: endDate as Date) {
-//              statistics, stop in
-//
-//              if let quantity = statistics.sumQuantity() {
-//                let distance = quantity.doubleValue(for: HKUnit.meter())
-//                print("\(statistics.endDate.timeIntervalSince1970): distance = \(distance)")
-//
-//                let ret =  [
-//                  "distance": distance,
-//                  "startDate" : statistics.startDate.timeIntervalSince1970 * 1000.0,
-//                  "endDate": statistics.endDate.timeIntervalSince1970 * 1000.0
-//                  ] as [String : Any]
-//                distanceArray.append(ret as NSObject)
-//              }
-//            }
-//            completion(distanceArray, error as NSError?)
-//          }
-//        }
-//
-//        healthKitStore.execute(query)
-//      }
 }
 
 struct ContentView_Previews: PreviewProvider {
