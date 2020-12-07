@@ -7,37 +7,106 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BE76704E257069FD001287FC /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE76704D257069FD001287FC /* WidgetKit.framework */; };
+		BE767050257069FD001287FC /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE76704F257069FD001287FC /* SwiftUI.framework */; };
+		BE767053257069FD001287FC /* DailyDistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE767052257069FD001287FC /* DailyDistance.swift */; };
+		BE76705625706A00001287FC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE76705525706A00001287FC /* Assets.xcassets */; };
+		BE76705825706A00001287FC /* DailyDistance.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = BE767054257069FD001287FC /* DailyDistance.intentdefinition */; };
+		BE76705925706A00001287FC /* DailyDistance.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = BE767054257069FD001287FC /* DailyDistance.intentdefinition */; };
+		BE76705C25706A00001287FC /* DailyDistanceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = BE76704C257069FD001287FC /* DailyDistanceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		BEA40E162565801200DE38DE /* DailyDistanceWidgetApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA40E152565801200DE38DE /* DailyDistanceWidgetApp.swift */; };
 		BEA40E182565801200DE38DE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA40E172565801200DE38DE /* ContentView.swift */; };
 		BEA40E1A2565804000DE38DE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BEA40E192565804000DE38DE /* Assets.xcassets */; };
 		BEA40E1D2565804000DE38DE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BEA40E1C2565804000DE38DE /* Preview Assets.xcassets */; };
+		BEA40E282565820F00DE38DE /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEA40E272565820F00DE38DE /* HealthKit.framework */; };
+		BEA9D5FA25745C0200CD6936 /* DistanceQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA9D5F925745C0200CD6936 /* DistanceQuery.swift */; };
+		BEA9D5FB25745C0200CD6936 /* DistanceQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA9D5F925745C0200CD6936 /* DistanceQuery.swift */; };
+		BEB0489D257C049B00A27A78 /* CumDistanceGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB0489C257C049B00A27A78 /* CumDistanceGraph.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		BE76705A25706A00001287FC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BEA40E0A2565801000DE38DE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BE76704B257069FD001287FC;
+			remoteInfo = DailyDistanceExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		BE76705D25706A00001287FC /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				BE76705C25706A00001287FC /* DailyDistanceExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		BE76704C257069FD001287FC /* DailyDistanceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = DailyDistanceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		BE76704D257069FD001287FC /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		BE76704F257069FD001287FC /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		BE767052257069FD001287FC /* DailyDistance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyDistance.swift; sourceTree = "<group>"; };
+		BE767054257069FD001287FC /* DailyDistance.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = DailyDistance.intentdefinition; sourceTree = "<group>"; };
+		BE76705525706A00001287FC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		BE76705725706A00001287FC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BEA40E122565801200DE38DE /* DailyDistanceWidget.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DailyDistanceWidget.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BEA40E152565801200DE38DE /* DailyDistanceWidgetApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyDistanceWidgetApp.swift; sourceTree = "<group>"; };
 		BEA40E172565801200DE38DE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		BEA40E192565804000DE38DE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BEA40E1C2565804000DE38DE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		BEA40E1E2565804000DE38DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BEA40E252565820F00DE38DE /* DailyDistanceWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DailyDistanceWidget.entitlements; sourceTree = "<group>"; };
+		BEA40E272565820F00DE38DE /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		BEA9D5F925745C0200CD6936 /* DistanceQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceQuery.swift; sourceTree = "<group>"; };
+		BEB0489C257C049B00A27A78 /* CumDistanceGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CumDistanceGraph.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		BE767049257069FD001287FC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BE767050257069FD001287FC /* SwiftUI.framework in Frameworks */,
+				BE76704E257069FD001287FC /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BEA40E0F2565801100DE38DE /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BEA40E282565820F00DE38DE /* HealthKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BE767051257069FD001287FC /* DailyDistance */ = {
+			isa = PBXGroup;
+			children = (
+				BE767052257069FD001287FC /* DailyDistance.swift */,
+				BE767054257069FD001287FC /* DailyDistance.intentdefinition */,
+				BE76705525706A00001287FC /* Assets.xcassets */,
+				BE76705725706A00001287FC /* Info.plist */,
+			);
+			path = DailyDistance;
+			sourceTree = "<group>";
+		};
 		BEA40E092565801000DE38DE = {
 			isa = PBXGroup;
 			children = (
 				BEA40E142565801200DE38DE /* DailyDistanceWidget */,
+				BE767051257069FD001287FC /* DailyDistance */,
 				BEA40E132565801200DE38DE /* Products */,
+				BEA40E262565820F00DE38DE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -45,6 +114,7 @@
 			isa = PBXGroup;
 			children = (
 				BEA40E122565801200DE38DE /* DailyDistanceWidget.app */,
+				BE76704C257069FD001287FC /* DailyDistanceExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -52,8 +122,11 @@
 		BEA40E142565801200DE38DE /* DailyDistanceWidget */ = {
 			isa = PBXGroup;
 			children = (
+				BEA40E252565820F00DE38DE /* DailyDistanceWidget.entitlements */,
 				BEA40E152565801200DE38DE /* DailyDistanceWidgetApp.swift */,
 				BEA40E172565801200DE38DE /* ContentView.swift */,
+				BEA9D5F925745C0200CD6936 /* DistanceQuery.swift */,
+				BEB0489C257C049B00A27A78 /* CumDistanceGraph.swift */,
 				BEA40E192565804000DE38DE /* Assets.xcassets */,
 				BEA40E1E2565804000DE38DE /* Info.plist */,
 				BEA40E1B2565804000DE38DE /* Preview Content */,
@@ -69,9 +142,36 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		BEA40E262565820F00DE38DE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BEA40E272565820F00DE38DE /* HealthKit.framework */,
+				BE76704D257069FD001287FC /* WidgetKit.framework */,
+				BE76704F257069FD001287FC /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		BE76704B257069FD001287FC /* DailyDistanceExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BE76706025706A00001287FC /* Build configuration list for PBXNativeTarget "DailyDistanceExtension" */;
+			buildPhases = (
+				BE767048257069FD001287FC /* Sources */,
+				BE767049257069FD001287FC /* Frameworks */,
+				BE76704A257069FD001287FC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DailyDistanceExtension;
+			productName = DailyDistanceExtension;
+			productReference = BE76704C257069FD001287FC /* DailyDistanceExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		BEA40E112565801100DE38DE /* DailyDistanceWidget */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = BEA40E212565804000DE38DE /* Build configuration list for PBXNativeTarget "DailyDistanceWidget" */;
@@ -79,10 +179,12 @@
 				BEA40E0E2565801100DE38DE /* Sources */,
 				BEA40E0F2565801100DE38DE /* Frameworks */,
 				BEA40E102565801100DE38DE /* Resources */,
+				BE76705D25706A00001287FC /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				BE76705B25706A00001287FC /* PBXTargetDependency */,
 			);
 			name = DailyDistanceWidget;
 			productName = DailyDistanceWidget;
@@ -98,6 +200,9 @@
 				LastSwiftUpdateCheck = 1220;
 				LastUpgradeCheck = 1220;
 				TargetAttributes = {
+					BE76704B257069FD001287FC = {
+						CreatedOnToolsVersion = 12.2;
+					};
 					BEA40E112565801100DE38DE = {
 						CreatedOnToolsVersion = 12.2;
 					};
@@ -117,11 +222,20 @@
 			projectRoot = "";
 			targets = (
 				BEA40E112565801100DE38DE /* DailyDistanceWidget */,
+				BE76704B257069FD001287FC /* DailyDistanceExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		BE76704A257069FD001287FC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BE76705625706A00001287FC /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BEA40E102565801100DE38DE /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -134,18 +248,81 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		BE767048257069FD001287FC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BE767053257069FD001287FC /* DailyDistance.swift in Sources */,
+				BE76705825706A00001287FC /* DailyDistance.intentdefinition in Sources */,
+				BEA9D5FB25745C0200CD6936 /* DistanceQuery.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BEA40E0E2565801100DE38DE /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				BEA40E182565801200DE38DE /* ContentView.swift in Sources */,
+				BEB0489D257C049B00A27A78 /* CumDistanceGraph.swift in Sources */,
+				BE76705925706A00001287FC /* DailyDistance.intentdefinition in Sources */,
 				BEA40E162565801200DE38DE /* DailyDistanceWidgetApp.swift in Sources */,
+				BEA9D5FA25745C0200CD6936 /* DistanceQuery.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		BE76705B25706A00001287FC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BE76704B257069FD001287FC /* DailyDistanceExtension */;
+			targetProxy = BE76705A25706A00001287FC /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		BE76705E25706A00001287FC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = LUYCFUH4F2;
+				INFOPLIST_FILE = DailyDistance/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = None.DailyDistanceWidget.DailyDistance;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		BE76705F25706A00001287FC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = LUYCFUH4F2;
+				INFOPLIST_FILE = DailyDistance/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = None.DailyDistanceWidget.DailyDistance;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		BEA40E1F2565804000DE38DE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -265,8 +442,10 @@
 		BEA40E222565804000DE38DE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = DailyDistanceWidget/DailyDistanceWidget.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"DailyDistanceWidget/Preview Content\"";
 				DEVELOPMENT_TEAM = LUYCFUH4F2;
@@ -287,8 +466,10 @@
 		BEA40E232565804000DE38DE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = DailyDistanceWidget/DailyDistanceWidget.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"DailyDistanceWidget/Preview Content\"";
 				DEVELOPMENT_TEAM = LUYCFUH4F2;
@@ -309,6 +490,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		BE76706025706A00001287FC /* Build configuration list for PBXNativeTarget "DailyDistanceExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BE76705E25706A00001287FC /* Debug */,
+				BE76705F25706A00001287FC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		BEA40E0D2565801000DE38DE /* Build configuration list for PBXProject "DailyDistanceWidget" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
