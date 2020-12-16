@@ -15,58 +15,40 @@ struct DistanceData {
 
 struct CumDistanceGraph: View {
     
-//    let day: [Date] = {
-//        let interval = DateComponents(hour: 1)
-//        let start = Date().startOfDay
-//        return (0..<24).map {
-//            Calendar.current.date(byAdding: .hour, value: $0, to: start)!
-//        }
-//    }()
-    
     let dayDistancesByDate: [DistanceData]
     let cumDistanceByHour: [(hour: Int, distance: Measurement<Unit>)]
-    var maxAxisVal = 0
+    let maxAxisVal: Double
     
     init (dayDistancesByDate: [DistanceData]) {
 
         self.dayDistancesByDate = dayDistancesByDate
         
-        //Calculate sum of distance by hour of day and store
-//        for i in (0..<24) {
-//
-//            //Find any distance where time is less than the hour
-//            let validDistances = dayDistancesByDate.filter {
-//                let hour = Calendar.current.component(.hour, from: $0.date)
-//                return hour <= i
-//            }
-//
-//            let sumToHour = validDistances.reduce(into: Measurement(value: 0, unit: UnitLength.meters)) {$0 = $0 + $1.distance}
-//            cumDistanceByHour.append((i,sumToHour))
-//        }
-//
         self.cumDistanceByHour = (0..<24).map {i in
             
             return (i,  dayDistancesByDate.filter {
                     Calendar.current.component(.hour, from: $0.date) <= i
                 }
                 .reduce(into: Measurement(value: 0, unit: UnitLength.meters)) {$0 = $0 + $1.distance})
-            
         }
         
+        self.maxAxisVal = max(cumDistanceByHour.last!.distance.value.rounded(.up), 3000)
         
     }
-    
-    
-    
     
     var body: some View {
 
         GeometryReader { geo in
-        
-            ZStack {
-                CumDistanceBars(cumDistanceByHour: cumDistanceByHour, rect: geo.size)
+            ZStack(alignment: Alignment(horizontal: .center, vertical: .bottom)) {
+                
+                GraphPlotArea(maxScaleX: 24, maxScaleY: 3)
+                    .stroke(Color.gray)
+                GraphCumDistanceBars(cumDistanceByHour: cumDistanceByHour, maxAxisVal: maxAxisVal, rect: geo.size)
+                    .frame(width: geo.size.width, height: geo.size.height)
+//                Rectangle()
+//                    .stroke(Color.red)
+//                    .frame(width: geo.size.width, height: geo.size.height)
+                    
             }
-            
         }
         
     }
@@ -74,38 +56,41 @@ struct CumDistanceGraph: View {
 
 }
 
-struct CumDistanceBars: View {
+struct GraphCumDistanceBars: View {
     let cumDistanceByHour: [(hour: Int, distance: Measurement<Unit>)]
+    let maxAxisVal: Double
     let rect: CGSize
     
     var body: some View {
-        HStack(alignment: .bottom, spacing: 2) {
+ 
+        HStack(alignment: .bottom, spacing: 5) {
             ForEach(cumDistanceByHour, id:\.self.0) {i  in
-                VStack() {
+                VStack(alignment: .center) {
                     Capsule()
-                        .frame(height: getBarLength(maxLength: rect.height, maxDistance: cumDistanceByHour.last!.distance, distance: i.distance))
-                }
+                        .frame(height: getBarLength(maxLength: rect.height, roundedMaxDistance: maxAxisVal, distance: i.distance))
+                    }
+                
             }
         }
+
     }
     
-    private func getBarLength(maxLength: CGFloat, maxDistance: Measurement<Unit>, distance: Measurement<Unit>) -> CGFloat {
-        
-        //round up max length to nearest 1km
-        let roundedMaxDistance = maxDistance.value.rounded(.up)
+    private func getBarLength(maxLength: CGFloat, roundedMaxDistance: Double, distance: Measurement<Unit>) -> CGFloat {
         return CGFloat(distance.value) / CGFloat(roundedMaxDistance) * maxLength
     }
 }
 
 struct CumDistanceGraph_Previews: PreviewProvider {
     static var previews: some View {
-        let d = DistanceData(date: Date(), distance: Measurement(value: 1000, unit: UnitLength.meters))
-        let d2 = DistanceData(date: Calendar.current.date(byAdding: .hour, value: -3, to: Date())!, distance: Measurement(value: 3000, unit: UnitLength.meters))
-        let d3 = DistanceData(date: Calendar.current.date(byAdding: .hour, value: -18, to: Date())!, distance: Measurement(value: 3000, unit: UnitLength.meters))
+        let d = DistanceData(date: Date(), distance: Measurement(value: 200, unit: UnitLength.meters))
+        let d2 = DistanceData(date: Calendar.current.date(byAdding: .hour, value: -3, to: Date())!, distance: Measurement(value: 300, unit: UnitLength.meters))
+        let d3 = DistanceData(date: Calendar.current.date(byAdding: .hour, value: -22, to: Date())!, distance: Measurement(value: 300, unit: UnitLength.meters))
         
+        Group {
+            CumDistanceGraph(dayDistancesByDate: [d,d2,d3])
+                .frame(width: 300, height: 300)
+                .previewDevice(PreviewDevice(rawValue: "iPhone 8"))
+        }
         
-        CumDistanceGraph(dayDistancesByDate: [d,d2,d3])
-            .frame(width: 300, height: 300)
-            .border(Color.gray)
     }
 }

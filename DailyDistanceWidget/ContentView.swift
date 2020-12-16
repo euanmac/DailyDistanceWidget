@@ -59,7 +59,7 @@ struct ContentView: View {
                                     }
                                 }
                                 CumDistanceGraph(dayDistancesByDate: distanceStats)
-                                    .frame(width: 200, height: 200)
+                                    .frame(width: 300, height: 300)
                             }
                                 
                         case .notAuthorised:
@@ -173,7 +173,7 @@ struct ContentView: View {
             
             let endDate = startDate.endOfDay
             
-            // Plot the weekly step counts over the past 3 months
+            // Plot the weekly step counts over the past day
             statsCollection.enumerateStatistics(from: startDate, to: endDate) {statistics, stop in
                 
                 if let quantity = statistics.sumQuantity() {
