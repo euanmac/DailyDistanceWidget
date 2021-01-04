@@ -153,7 +153,7 @@ struct GraphBar_Previews: PreviewProvider {
             }
             HStack {
                 GeometryReader {geo in
-                    HStack {
+                    HStack(spacing: 0){
                         GraphValueAxis(data: graphData)
                             .frame(width: geo.size.width * 0.05, height: geo.size.height, alignment: .trailing)
                         ZStack {

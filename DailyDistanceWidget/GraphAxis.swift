@@ -28,13 +28,13 @@ struct GraphValueAxis: View {
         //let tickHeight = geo.size.height / CGFloat(range)
         GeometryReader {geo in
             VStack {
-                Text("Scale \(widthScale)")
-                    .fixedSize()
+//                Text("Scale \(widthScale)")
+//                    .fixedSize()
                 ZStack {
                     ForEach(scale.indices) {scaleIndex in
                         Text(scale[scaleIndex])
-                            .padding(0)
-                            .scaleEffect(widthScale)
+                            
+                           
                             .lineLimit(1)
                             //.minimumScaleFactor(0.5)
                             .fixedSize(horizontal: true, vertical: true)
@@ -43,8 +43,9 @@ struct GraphValueAxis: View {
                                                 [scaleIndex: geo[$0].size] }
                             )
                             .border(Color.black)
-                            .position(x: 1, y: (geo.size.height / CGFloat(scale.count - 1)) * CGFloat(scaleIndex))
-        
+                            .scaleEffect(widthScale)
+                            .position(x: geo.size.width / 2, y: (geo.size.height / CGFloat(scale.count - 1)) * CGFloat(scaleIndex))
+                            
                         
                     }
                     
