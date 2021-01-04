@@ -10,6 +10,47 @@ import WidgetKit
 import HealthKit
 
 
+struct ContentView2: View {
+    static var data: [GraphDatePoint] = {
+        let startDate = Date().startOfDay
+        var _data =  Array(0...23).map {GraphDatePoint(date: startDate.byAdding(hours: $0), value: 0)}
+        
+        _data[1] = GraphDatePoint(date: startDate.byAdding(hours: 0), value: 337)
+        _data[2] = GraphDatePoint(date: startDate.byAdding(hours: 1), value: 22.7)
+        _data[7] = GraphDatePoint(date: startDate.byAdding(hours: 7), value: 2.5)
+        _data[12] = GraphDatePoint(date: startDate.byAdding(hours: 12), value: 0.2)
+        _data[18] = GraphDatePoint(date: startDate.byAdding(hours: 18), value: 1.3)
+        return _data
+    }()
+    
+    var body: some View {
+        let graphData = GraphData(data: ContentView2.data)
+        VStack {
+            HStack {
+                VStack {
+                    Text("X")
+                    Text("Min \(graphData.minDate!.shortTime)")
+                    Text("Max \(graphData.maxDate!.shortTime)")
+                }.frame(alignment: .top)
+                VStack {
+                    Text("Y")
+                    Text("Min \(graphData.valueScaleMin)")
+                    Text("Max \(graphData.valueScaleMax)")
+                    Text("Range \(graphData.valueScaleRange)")
+                    Text("Tick \(graphData.valueTickSpacing)")
+                }.frame(alignment: .top)
+            }
+            HStack {
+                GraphValueAxis(data: graphData)
+                    .frame(width: 300 * 0.1, height: 300, alignment: .trailing)
+            }
+        }
+        .frame(width: 300, height: 300)
+    }
+    
+    
+}
+
 struct ContentView: View {
     
     enum AuthorisationState {
@@ -238,5 +279,19 @@ extension Date {
         components.day = 1
         let date = Calendar.current.date(byAdding: components, to: self.startOfDay)
         return (date?.addingTimeInterval(-1))!
+    }
+    
+    func byAdding(hours: Int) -> Date {
+        Calendar.current.date(byAdding: .hour, value: hours, to: self)!
+    }
+    var shortTime: String {
+        let df = DateFormatter()
+        df.timeStyle = .short
+        return df.string(from: self)
+    }
+    var shortDate: String {
+        let df = DateFormatter()
+        df.dateStyle = .short
+        return df.string(from: self)
     }
 }

@@ -7,70 +7,97 @@
 
 import SwiftUI
 
-struct GraphPlotAreaView: View {
-    var body: some View {
-        GraphPlotArea(maxScaleX: 10, minScaleX: 0, xInterval: 1, maxScaleY: 10, minScaleY: 0, yInterval: 1)
-    }
-}
+//struct GraphPlotAreaView: View {
+//    var body: some View {
+//        GraphPlotArea(maxScaleX: 10, minScaleX: 0, xInterval: 1, maxScaleY: 10, minScaleY: 0, yInterval: 1)
+//    }
+//}
 
 struct GraphPlotArea: Shape {
     
-    let maxScaleX: Int
-    let minScaleX: Int
-    let xInterval: Int
-    let maxScaleY: Int
-    let minScaleY: Int
-    let yInterval: Int
+//    let maxScaleX: Int
+//    let minScaleX: Int
+//    let xInterval: Int
+//    let maxScaleY: Int
+//    let minScaleY: Int
+//    let yInterval: Int
+    let graphData: GraphData
     
-    init(maxScaleX: Int,
-         minScaleX: Int = 0,
-         xInterval: Int = 1,
-         maxScaleY: Int,
-         minScaleY: Int = 0,
-         yInterval: Int = 1) {
-        
-        self.maxScaleX = maxScaleX
-        self.maxScaleY = maxScaleY
-        self.minScaleX = minScaleX
-        self.minScaleY = minScaleY
-        self.xInterval = xInterval
-        self.yInterval = yInterval
-        
+    init(data: GraphData) {
+        self.graphData = data
     }
-    
-    
-    func path(in rect: CGRect) -> Path {
         
-        let intHeight = rect.height / CGFloat(maxScaleY - minScaleY)
-        let intWidth = rect.width / CGFloat(maxScaleX - minScaleX)
+    func path(in rect: CGRect) -> Path {
         
         var path = Path()
         
-        for y in stride(from: 0, through:((maxScaleY - minScaleY)), by: yInterval) {
+        guard graphData.data.count > 0 else {
+            return path
+        }
         
+        let range = graphData.valueScaleMax - graphData.valueScaleMin
+        let intHeight = rect.height / CGFloat(range)
+        let intWidth = rect.width / CGFloat(graphData.data.count)
+        
+        
+        for y in stride(from: graphData.valueScaleMin, through:((graphData.valueScaleMax)), by: graphData.valueTickSpacing) {
             path.move(to: CGPoint(x: 0, y: intHeight * CGFloat(y)))
             path.addLine(to: CGPoint(x: rect.width, y: intHeight * CGFloat(y)))
         }
         
-        for x in stride(from: 0, through:((maxScaleX - minScaleX)), by: xInterval){
-        
-            path.move(to: CGPoint(x: intWidth * CGFloat(x), y: 0))
-            path.addLine(to: CGPoint(x: intWidth * CGFloat(x), y: rect.height))
-        }
+//        for x in stride(from: 0, through:((range)), by: xInterval){
+//
+//            path.move(to: CGPoint(x: intWidth * CGFloat(x), y: 0))
+//            path.addLine(to: CGPoint(x: intWidth * CGFloat(x), y: rect.height))
+//        }
         
         return path
     }
 }
 
 struct GraphPlotArea_Previews: PreviewProvider {
+    
+    static var data: [GraphDatePoint] = {
+        
+        let startDate = Date().startOfDay
+        var _data =  Array(0...23).map {GraphDatePoint(date: startDate.byAdding(hours: $0), value: 0)}
+        
+        _data[1] = GraphDatePoint(date: startDate.byAdding(hours: 0), value: 2.7)
+        _data[2] = GraphDatePoint(date: startDate.byAdding(hours: 1), value: 4.7)
+        _data[7] = GraphDatePoint(date: startDate.byAdding(hours: 7), value: 2.5)
+        _data[12] = GraphDatePoint(date: startDate.byAdding(hours: 12), value: 0.2)
+        _data[18] = GraphDatePoint(date: startDate.byAdding(hours: 18), value: 1.3)
+        return _data
+    }()
+    
     static var previews: some View {
-        GraphPlotArea(maxScaleX: 24, maxScaleY: 3)
-            .stroke(Color.black)
-            .frame(width: 200, height: 200)
+        let graphData = GraphData(data: data)
+        VStack {
+            HStack {
+                VStack {
+                    Text("X")
+                    Text("Min \(graphData.minDate!.shortTime)")
+                    Text("Max \(graphData.maxDate!.shortTime)")
+//                    Text("Range \(graphData.xScaleRange)")
+//                    Text("Tick \(graphData.xTickSpacing)")
+                }
+                VStack {
+                    Text("Y")
+                    Text("Min \(graphData.valueScaleMin)")
+                    Text("Max \(graphData.valueScaleMax)")
+                    Text("Range \(graphData.valueScaleRange)")
+                    Text("Tick \(graphData.valueTickSpacing)")
+                }
+            }
+            GraphPlotArea(data: graphData)
+                .stroke(Color.black)
+                .frame(width: 200, height: 200)
+        
+        }
             
-        GraphPlotArea(maxScaleX: 24, minScaleX: 12, xInterval: 2, maxScaleY: 3000,minScaleY: 0, yInterval: 1000)
-            .stroke(Color.black)
-            .frame(width: 200, height: 200)
+//        GraphPlotArea(maxScaleX: 24, minScaleX: 12, xInterval: 2, maxScaleY: 3000,minScaleY: 0, yInterval: 1000)
+//            .stroke(Color.black)
+//            .frame(width: 200, height: 200)
         
         
     }

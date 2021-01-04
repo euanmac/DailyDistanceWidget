@@ -40,8 +40,8 @@ struct CumDistanceGraph: View {
         GeometryReader { geo in
             ZStack(alignment: Alignment(horizontal: .center, vertical: .bottom)) {
                 
-                GraphPlotArea(maxScaleX: 24, maxScaleY: 3)
-                    .stroke(Color.gray)
+//                GraphPlotArea(maxScaleX: 24, maxScaleY: 3)
+//                    .stroke(Color.gray)
                 GraphCumDistanceBars(cumDistanceByHour: cumDistanceByHour, maxAxisVal: maxAxisVal, rect: geo.size)
                     .frame(width: geo.size.width, height: geo.size.height)
 //                Rectangle()

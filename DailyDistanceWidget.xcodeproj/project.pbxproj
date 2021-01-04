@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BE5696842593AE8E00FB58B8 /* GraphAxis.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5696832593AE8E00FB58B8 /* GraphAxis.swift */; };
 		BE76704E257069FD001287FC /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE76704D257069FD001287FC /* WidgetKit.framework */; };
 		BE767050257069FD001287FC /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE76704F257069FD001287FC /* SwiftUI.framework */; };
 		BE767053257069FD001287FC /* DailyDistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE767052257069FD001287FC /* DailyDistance.swift */; };
@@ -51,6 +52,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		BE5696832593AE8E00FB58B8 /* GraphAxis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphAxis.swift; sourceTree = "<group>"; };
 		BE76704C257069FD001287FC /* DailyDistanceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = DailyDistanceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE76704D257069FD001287FC /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		BE76704F257069FD001287FC /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
@@ -131,6 +133,7 @@
 				BEA40E172565801200DE38DE /* ContentView.swift */,
 				BEA9D5F925745C0200CD6936 /* DistanceQuery.swift */,
 				BEC9ABE1258366CA00399B71 /* GraphPlotArea.swift */,
+				BE5696832593AE8E00FB58B8 /* GraphAxis.swift */,
 				BEAEF82A258396D7005EDB54 /* GraphBar.swift */,
 				BEB0489C257C049B00A27A78 /* CumDistanceGraph.swift */,
 				BEA40E192565804000DE38DE /* Assets.xcassets */,
@@ -269,6 +272,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BEA40E182565801200DE38DE /* ContentView.swift in Sources */,
+				BE5696842593AE8E00FB58B8 /* GraphAxis.swift in Sources */,
 				BEAEF82B258396D7005EDB54 /* GraphBar.swift in Sources */,
 				BEB0489D257C049B00A27A78 /* CumDistanceGraph.swift in Sources */,
 				BEC9ABE2258366CA00399B71 /* GraphPlotArea.swift in Sources */,

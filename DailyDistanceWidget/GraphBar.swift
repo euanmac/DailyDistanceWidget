@@ -7,63 +7,44 @@
 
 import SwiftUI
 
-struct GraphBarView: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
-}
-
-struct GraphDataPoint {
-    let xValue: Float
-    let yValue: Float
+struct GraphDatePoint {
+    let date: Date
+    let value: Float
 }
 
 struct GraphData {
-    let data: [GraphDataPoint]
-    let maxX: Float
-    let minX: Float
-    let maxY: Float
-    let minY: Float
+    
+    let data: [GraphDatePoint]
+    let maxDate: Date?
+    let minDate: Date?
+    let maxValue: Float
+    let minValue: Float
     var maxTicks: Float = 10
     
-    init (data: [GraphDataPoint]) {
+    init (data: [GraphDatePoint]) {
         self.data = data
-        self.maxX = data.max {$0.xValue < $1.xValue}?.xValue ?? 0
-        self.minX = data.min {$0.xValue > $1.xValue}?.xValue ?? 0
-        self.maxY = data.max {$0.yValue < $1.yValue}?.yValue ?? 0
-        self.minY = data.max {$0.yValue > $1.yValue}?.yValue ?? 0
+        self.maxDate = data.max {$0.date < $1.date}?.date
+        self.minDate = data.min {$0.date > $1.date}?.date
+        self.maxValue = data.max {$0.value < $1.value}?.value ?? 0
+        self.minValue = data.max {$0.value > $1.value}?.value ?? 0
     }
 
-    public var xTickSpacing: Float {
-        niceNum(range: xScaleRange / (maxTicks - 1), round: true)
+
+        
+    public var valueTickSpacing: Float {
+        niceNum(range: valueScaleRange / (maxTicks - 1), round: true)
     }
     
-    public var xScaleRange: Float {
-        niceNum(range: maxX - minX, round: false)
+    public var valueScaleRange: Float {
+        niceNum(range: maxValue - minValue, round: false)
     }
     
-    public var xScaleMin: Float {
-        (minX / xTickSpacing).rounded(.down) * xTickSpacing
+    public var valueScaleMin: Float {
+        (minValue / valueTickSpacing).rounded(.down) * valueTickSpacing
     }
     
-    public var xScaleMax: Float {
-        (maxX / xTickSpacing).rounded(.up) * xTickSpacing
-    }
-    
-    public var yTickSpacing: Float {
-        niceNum(range: yScaleRange / (maxTicks - 1), round: true)
-    }
-    
-    public var yScaleRange: Float {
-        niceNum(range: maxY - minY, round: false)
-    }
-    
-    public var yScaleMin: Float {
-        (minY / yTickSpacing).rounded(.down) * yTickSpacing
-    }
-    
-    public var yScaleMax: Float {
-        (maxY / yTickSpacing).rounded(.up) * yTickSpacing
+    public var valueScaleMax: Float {
+        (maxValue / valueTickSpacing).rounded(.up) * valueTickSpacing
     }
     
     
@@ -92,32 +73,8 @@ struct GraphData {
             default:
                 niceFraction = 10
             }
-//            if (fraction < 1.5) {
-//                niceFraction = 1
-//            }
-//            else if (fraction < 3) {
-//                niceFraction = 2
-//            }
-//            else if (fraction < 7) {
-//                niceFraction = 5
-//            }
-//            else {
-//                niceFraction = 10
-//            }
             
         } else {
-//            if (fraction <= 1) {
-//                niceFraction = 1
-//            }
-//            else if (fraction <= 2) {
-//                niceFraction = 2
-//            }
-//            else if (fraction <= 5) {
-//                niceFraction = 5
-//            }
-//            else {
-//                niceFraction = 10
-//            }
             switch fraction {
             case ...1:
                 niceFraction = 1
@@ -132,10 +89,6 @@ struct GraphData {
 
         return niceFraction * pow(10, exponent);
     }
-
-    
-    
-    
 }
 
 struct GraphBar: Shape {
@@ -148,7 +101,7 @@ struct GraphBar: Shape {
 
     func path(in rect: CGRect) -> Path {
         
-        let barHeightPerUnit = rect.height / CGFloat(graphData.yScaleMax - graphData.yScaleMin)
+        let barHeightPerUnit = rect.height / CGFloat(graphData.valueScaleMax - graphData.valueScaleMin)
         let barWidth = rect.width / CGFloat(graphData.data.count)
         
         var path = Path()
@@ -157,7 +110,7 @@ struct GraphBar: Shape {
         for (n, point) in graphData.data.enumerated() {
             
             let origin = CGPoint(x: CGFloat(n) * barWidth, y: 0)
-            let size = CGSize(width: barWidth, height: barHeightPerUnit * CGFloat(point.yValue))
+            let size = CGSize(width: barWidth, height: barHeightPerUnit * CGFloat(point.value))
             path.addRect(CGRect(origin: origin, size: size))
         }
         let transform = CGAffineTransform(scaleX: 1, y: -1)
@@ -166,30 +119,72 @@ struct GraphBar: Shape {
     }
 }
 
-
 struct GraphBar_Previews: PreviewProvider {
     
-    static var data: [GraphDataPoint] = {
-        var _data =  Array(0...23).map {GraphDataPoint(xValue: Float($0), yValue: 0)}
-        _data[1] = GraphDataPoint(xValue: 0, yValue: 4.7)
-        _data[2] = GraphDataPoint(xValue: 0, yValue: 4.7)
-        _data[7] = GraphDataPoint(xValue: 7, yValue: 2.5)
-        _data[12] = GraphDataPoint(xValue: 12, yValue: 0.2)
-        _data[18] = GraphDataPoint(xValue: 18, yValue: 1.3)
+    static var data: [GraphDatePoint] = {
+        let startDate = Date().startOfDay
+        var _data =  Array(0...23).map {GraphDatePoint(date: startDate.byAdding(hours: $0), value: 0)}
+        
+        _data[1] = GraphDatePoint(date: startDate.byAdding(hours: 0), value: 37)
+        _data[2] = GraphDatePoint(date: startDate.byAdding(hours: 1), value: 22.7)
+        _data[7] = GraphDatePoint(date: startDate.byAdding(hours: 7), value: 2.5)
+        _data[12] = GraphDatePoint(date: startDate.byAdding(hours: 12), value: 0.2)
+        _data[18] = GraphDatePoint(date: startDate.byAdding(hours: 18), value: 1.3)
         return _data
     }()
+ 
     
     static var previews: some View {
-        
-        GraphBar(data: GraphData(data: data))
-            .fill(Color.blue)
-            .border(Color.black)
-            .frame(width: 300, height: 420)
-        
+        let graphData = GraphData(data: data)
+        VStack {
+            HStack {
+                VStack {
+                    Text("X")
+                    Text("Min \(graphData.minDate!.shortTime)")
+                    Text("Max \(graphData.maxDate!.shortTime)")
+                }.frame(alignment: .top)
+                VStack {
+                    Text("Y")
+                    Text("Min \(graphData.valueScaleMin)")
+                    Text("Max \(graphData.valueScaleMax)")
+                    Text("Range \(graphData.valueScaleRange)")
+                    Text("Tick \(graphData.valueTickSpacing)")
+                }.frame(alignment: .top)
+            }
+            HStack {
+                GeometryReader {geo in
+                    HStack {
+                        GraphValueAxis(data: graphData)
+                            .frame(width: geo.size.width * 0.05, height: geo.size.height, alignment: .trailing)
+                        ZStack {
+                            
+                            GraphBar(data: graphData)
+                                .fill(Color.blue)
+                                
+                            GraphPlotArea(data: graphData)
+                                .stroke(Color.gray)
+                        }
+                    }
+                }
+            }
+            .frame(width: 300, height: 300)
+            
+        }
+            
     }
 }
 
-
+//struct GraphBarChart: View {
+//    let graphData: GraphData
+//
+//    var body: some View {
+//        ZStack {
+//            GraphBar(data: graphData)
+//                .fill(Color.blue)
+//                .border(Color.black)
+//        }
+//    }
+//}
 
 //public struct NiceScale {
 //
