@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		BE5696842593AE8E00FB58B8 /* GraphAxis.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5696832593AE8E00FB58B8 /* GraphAxis.swift */; };
+		BE5696842593AE8E00FB58B8 /* GraphValueAxis.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5696832593AE8E00FB58B8 /* GraphValueAxis.swift */; };
 		BE76704E257069FD001287FC /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE76704D257069FD001287FC /* WidgetKit.framework */; };
 		BE767050257069FD001287FC /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE76704F257069FD001287FC /* SwiftUI.framework */; };
 		BE767053257069FD001287FC /* DailyDistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE767052257069FD001287FC /* DailyDistance.swift */; };
@@ -15,6 +15,8 @@
 		BE76705825706A00001287FC /* DailyDistance.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = BE767054257069FD001287FC /* DailyDistance.intentdefinition */; };
 		BE76705925706A00001287FC /* DailyDistance.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = BE767054257069FD001287FC /* DailyDistance.intentdefinition */; };
 		BE76705C25706A00001287FC /* DailyDistanceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = BE76704C257069FD001287FC /* DailyDistanceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		BE875EC125A48A8000C4FAC6 /* GraphData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE875EC025A48A8000C4FAC6 /* GraphData.swift */; };
+		BE9A304F25A3D88A00E678E2 /* BarChartHorizontal.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9A304E25A3D88A00E678E2 /* BarChartHorizontal.swift */; };
 		BEA40E162565801200DE38DE /* DailyDistanceWidgetApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA40E152565801200DE38DE /* DailyDistanceWidgetApp.swift */; };
 		BEA40E182565801200DE38DE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA40E172565801200DE38DE /* ContentView.swift */; };
 		BEA40E1A2565804000DE38DE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BEA40E192565804000DE38DE /* Assets.xcassets */; };
@@ -52,7 +54,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		BE5696832593AE8E00FB58B8 /* GraphAxis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphAxis.swift; sourceTree = "<group>"; };
+		BE5696832593AE8E00FB58B8 /* GraphValueAxis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphValueAxis.swift; sourceTree = "<group>"; };
 		BE76704C257069FD001287FC /* DailyDistanceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = DailyDistanceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE76704D257069FD001287FC /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		BE76704F257069FD001287FC /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
@@ -60,6 +62,8 @@
 		BE767054257069FD001287FC /* DailyDistance.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = DailyDistance.intentdefinition; sourceTree = "<group>"; };
 		BE76705525706A00001287FC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BE76705725706A00001287FC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BE875EC025A48A8000C4FAC6 /* GraphData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphData.swift; sourceTree = "<group>"; };
+		BE9A304E25A3D88A00E678E2 /* BarChartHorizontal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChartHorizontal.swift; sourceTree = "<group>"; };
 		BEA40E122565801200DE38DE /* DailyDistanceWidget.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DailyDistanceWidget.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BEA40E152565801200DE38DE /* DailyDistanceWidgetApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyDistanceWidgetApp.swift; sourceTree = "<group>"; };
 		BEA40E172565801200DE38DE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -133,8 +137,10 @@
 				BEA40E172565801200DE38DE /* ContentView.swift */,
 				BEA9D5F925745C0200CD6936 /* DistanceQuery.swift */,
 				BEC9ABE1258366CA00399B71 /* GraphPlotArea.swift */,
-				BE5696832593AE8E00FB58B8 /* GraphAxis.swift */,
+				BE5696832593AE8E00FB58B8 /* GraphValueAxis.swift */,
 				BEAEF82A258396D7005EDB54 /* GraphBar.swift */,
+				BE875EC025A48A8000C4FAC6 /* GraphData.swift */,
+				BE9A304E25A3D88A00E678E2 /* BarChartHorizontal.swift */,
 				BEB0489C257C049B00A27A78 /* CumDistanceGraph.swift */,
 				BEA40E192565804000DE38DE /* Assets.xcassets */,
 				BEA40E1E2565804000DE38DE /* Info.plist */,
@@ -272,13 +278,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				BEA40E182565801200DE38DE /* ContentView.swift in Sources */,
-				BE5696842593AE8E00FB58B8 /* GraphAxis.swift in Sources */,
+				BE5696842593AE8E00FB58B8 /* GraphValueAxis.swift in Sources */,
 				BEAEF82B258396D7005EDB54 /* GraphBar.swift in Sources */,
 				BEB0489D257C049B00A27A78 /* CumDistanceGraph.swift in Sources */,
 				BEC9ABE2258366CA00399B71 /* GraphPlotArea.swift in Sources */,
 				BE76705925706A00001287FC /* DailyDistance.intentdefinition in Sources */,
 				BEA40E162565801200DE38DE /* DailyDistanceWidgetApp.swift in Sources */,
 				BEA9D5FA25745C0200CD6936 /* DistanceQuery.swift in Sources */,
+				BE875EC125A48A8000C4FAC6 /* GraphData.swift in Sources */,
+				BE9A304F25A3D88A00E678E2 /* BarChartHorizontal.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

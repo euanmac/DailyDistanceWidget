@@ -11,6 +11,9 @@ struct DistanceData {
 
     let date: Date
     let distance: Measurement<Unit>
+    var distanceInMetres: Double {
+        distance.value
+    }
 }
 
 struct CumDistanceGraph: View {

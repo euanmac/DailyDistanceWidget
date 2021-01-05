@@ -14,13 +14,7 @@ import SwiftUI
 //}
 
 struct GraphPlotArea: Shape {
-    
-//    let maxScaleX: Int
-//    let minScaleX: Int
-//    let xInterval: Int
-//    let maxScaleY: Int
-//    let minScaleY: Int
-//    let yInterval: Int
+
     let graphData: GraphData
     
     init(data: GraphData) {
@@ -36,7 +30,7 @@ struct GraphPlotArea: Shape {
         }
         
         let range = graphData.valueScaleMax - graphData.valueScaleMin
-        let intHeight = rect.height / CGFloat(range)
+        let intHeight = range == 0 ? 0 : rect.height / CGFloat(range)
         let intWidth = rect.width / CGFloat(graphData.data.count)
         
         
