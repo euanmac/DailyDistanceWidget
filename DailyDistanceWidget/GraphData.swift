@@ -140,4 +140,17 @@ extension GraphData {
        
         return GraphData(data: _data)
     }()
+    
+    static var negativeValues: GraphData = {
+        let startDate = Date().startOfDay
+        var _data =  Array(0...23).map {GraphDatePoint(date: startDate.byAdding(hours: $0), value: 0)}
+        
+        _data[1] = GraphDatePoint(date: startDate.byAdding(hours: 1), value: -1)
+        _data[2] = GraphDatePoint(date: startDate.byAdding(hours: 2), value: -2)
+        _data[3] = GraphDatePoint(date: startDate.byAdding(hours: 3), value: -3)
+        _data[5] = GraphDatePoint(date: startDate.byAdding(hours: 4), value: -4)
+        _data[8] = GraphDatePoint(date: startDate.byAdding(hours: 5), value: -5)
+       
+        return GraphData(data: _data)
+    }()
 }

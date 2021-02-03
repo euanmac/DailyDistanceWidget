@@ -8,6 +8,16 @@
 import Foundation
 import SwiftUI
 
+extension VerticalAlignment {
+    struct CustomAlignment: AlignmentID {
+        static func defaultValue(in context: ViewDimensions) -> CGFloat {
+            return context[VerticalAlignment.center]
+        }
+    }
+
+    static let custom = VerticalAlignment(CustomAlignment.self)
+}
+
 struct GraphValueAxis: View {
     
     @State var maxLabelWidth: CFloat = 0
@@ -23,7 +33,10 @@ struct GraphValueAxis: View {
         self.axisColour = axisColour
         
         //Init an array containing the scale valuesx
-        self.scale = stride(from: graphData.valueScaleMin, through:((graphData.valueScaleMax)), by: graphData.valueTickSpacing).reversed().map( {String($0)})
+        let scaleValues = stride(from: graphData.valueScaleMin, through:((graphData.valueScaleMax)), by: graphData.valueTickSpacing).reversed().map( {$0})
+        
+        self.scale = scaleValues.map {String($0)}
+        
     }
     
     //Ensure if only one value then
@@ -37,46 +50,63 @@ struct GraphValueAxis: View {
     }
     
     var body: some View {
-
+        
+//        HStack(alignment: .custom) {
+//                    Image(systemName: "star")
+//                    VStack(alignment: .leading) {
+//                        Text("T")
+//                        Text("P")
+//                        Text("L")
+//                        Text("M")
+//                            .alignmentGuide(.custom) { $0[VerticalAlignment.center] }
+//                    }
+//                }
 
             HStack(spacing: 1) {
+
                 GeometryReader {geo in
+  
                     ZStack {
-                        ForEach(scale.indices) {scaleIndex in
+                        ForEach(scale.indices, id: \.self) {scaleIndex in
+                            
                             Text(scale[scaleIndex])
-                                
+                                .border(Color.black)
                                 .lineLimit(1)
-                                //.minimumScaleFactor(0.5)
                                 .fixedSize(horizontal: true, vertical: true)
-                                
+//                                .minimumScaleFactor(0.2)
                                 .anchorPreference(key: SizePreferenceKey.self, value: .bounds, transform: {
-                                                    [scaleIndex: geo[$0].size] }
+                                        [scaleIndex: geo[$0].size] }
+                                )
+                                .anchorPreference(key: ScaleWidthPreferenceKey.self, value: .bounds, transform: {
+                                        [scaleIndex: geo[$0].size] }
                                 )
                                 .scaleEffect(widthScale)
                                 .position(x: geo.size.width / 2, y: (divZeroHeight(height: geo.size.height, scaleSize: scale.count - 1) * CGFloat(scaleIndex)))
-                                
                             
                         }
 
+
                     }
+
+
                     .onPreferenceChange(SizePreferenceKey.self) { prefs in
-                            print(prefs.count)
                             if !adjusted {
                                 if let maxWidth = prefs.map {$1.width} .max(by: <) {
                                     widthScale =  (geo.size.width / maxWidth)
                                     adjusted = true
                                 }
                             }
-                    
+
                     }
                 }
-                
+
+
+
                 Rectangle()
-                    //.fill(axisColour)
                     .border(axisColour)
                     .frame(width: 1)
             }
-        
+
     }
     
     func tickHeight(totalHeight: CGFloat) -> Float {
@@ -89,7 +119,7 @@ struct GraphValueAxis: View {
 struct GraphAxis_Previews: PreviewProvider {
         
     static var previews: some View {
-        let graphData = GraphData.singleDataValue
+        let graphData = GraphData.largeDataValue
         VStack {
             HStack {
                 VStack {
@@ -107,7 +137,8 @@ struct GraphAxis_Previews: PreviewProvider {
             }
             HStack {
                 GraphValueAxis(data: graphData)
-                    .frame(width: 100 * 0.25, height: 300)
+                    .frame(width: 100 * 0.5, height: 300)
+                    .border(Color.red)
                 
             }
             Spacer()
@@ -118,22 +149,19 @@ struct GraphAxis_Previews: PreviewProvider {
     
 }
 
-struct SizePreferences<Item: Hashable>: PreferenceKey {
-    typealias Value = [Item: CGSize]
-
-    static var defaultValue: Value { [:] }
-
-    static func reduce(
-        value: inout Value,
-        nextValue: () -> Value
-    ) {
-        value.merge(nextValue()) { $1 }
-    }
-}
-
 struct SizePreferenceKey: PreferenceKey {
     static var defaultValue: [Int: CGSize] = [:]
     static func reduce(value: inout [Int: CGSize] , nextValue: () -> [Int: CGSize]) {
         value.merge(nextValue()) { $1 }
+    }
+}
+
+
+struct ScaleWidthPreferenceKey: PreferenceKey {
+    static let defaultValue: CGFloat = 0
+
+    static func reduce(value: inout CGFloat,
+                       nextValue: () -> CGFloat) {
+        value = max(value, nextValue())
     }
 }

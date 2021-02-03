@@ -27,6 +27,7 @@
 		BEAEF82B258396D7005EDB54 /* GraphBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAEF82A258396D7005EDB54 /* GraphBar.swift */; };
 		BEB0489D257C049B00A27A78 /* CumDistanceGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB0489C257C049B00A27A78 /* CumDistanceGraph.swift */; };
 		BEC9ABE2258366CA00399B71 /* GraphPlotArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC9ABE1258366CA00399B71 /* GraphPlotArea.swift */; };
+		BEFFAC4025A7015000C81AAF /* GraphSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFFAC3F25A7015000C81AAF /* GraphSettings.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +77,7 @@
 		BEAEF82A258396D7005EDB54 /* GraphBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphBar.swift; sourceTree = "<group>"; };
 		BEB0489C257C049B00A27A78 /* CumDistanceGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CumDistanceGraph.swift; sourceTree = "<group>"; };
 		BEC9ABE1258366CA00399B71 /* GraphPlotArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphPlotArea.swift; sourceTree = "<group>"; };
+		BEFFAC3F25A7015000C81AAF /* GraphSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphSettings.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +141,7 @@
 				BEC9ABE1258366CA00399B71 /* GraphPlotArea.swift */,
 				BE5696832593AE8E00FB58B8 /* GraphValueAxis.swift */,
 				BEAEF82A258396D7005EDB54 /* GraphBar.swift */,
+				BEFFAC3F25A7015000C81AAF /* GraphSettings.swift */,
 				BE875EC025A48A8000C4FAC6 /* GraphData.swift */,
 				BE9A304E25A3D88A00E678E2 /* BarChartHorizontal.swift */,
 				BEB0489C257C049B00A27A78 /* CumDistanceGraph.swift */,
@@ -277,6 +280,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BEFFAC4025A7015000C81AAF /* GraphSettings.swift in Sources */,
 				BEA40E182565801200DE38DE /* ContentView.swift in Sources */,
 				BE5696842593AE8E00FB58B8 /* GraphValueAxis.swift in Sources */,
 				BEAEF82B258396D7005EDB54 /* GraphBar.swift in Sources */,

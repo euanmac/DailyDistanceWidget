@@ -10,7 +10,8 @@ import SwiftUI
 struct GraphBar: Shape {
         
     let graphData: GraphData
-    let spacing: CGFloat = 1
+    let spacing: CGFloat = 2
+    let rounded = true
     
     init(data: GraphData) {
         self.graphData = data
@@ -27,15 +28,33 @@ struct GraphBar: Shape {
         let range = graphData.valueScaleMax - graphData.valueScaleMin
         let barHeightPerUnit = range == 0 ? 0 : rect.height / CGFloat(range)
         
-        let barWidth = rect.width / CGFloat(graphData.data.count)
+        let barWidth = max(0, (rect.width / CGFloat(graphData.data.count)) - spacing)
         
         var path = Path()
 
         for (n, point) in graphData.data.enumerated() {
 
-            let origin = CGPoint(x: CGFloat(n) * barWidth, y: 0)
-            let size = CGSize(width: barWidth, height: barHeightPerUnit * CGFloat(point.value))
-            path.addRect(CGRect(origin: origin, size: size))
+            let origin = CGPoint(x: CGFloat(n) * (barWidth + spacing), y: 0)
+            
+            //Adjust bar height
+            let barHeight = max(0, barHeightPerUnit * CGFloat(point.value))
+
+            let bar = CGRect(origin: origin, size: CGSize(width: barWidth, height:barHeight))
+            
+            let rounding = rounded ? (bar.width * 0.3) : 0
+            path.addRoundedRect(in: bar, cornerSize: CGSize (width: rounding, height: rounding), style: .continuous, transform: .identity)
+            
+//            path.move(to: bar.origin)
+//            path.addLine(to: CGPoint(x: bar.minX, y: bar.maxY))
+//            if !roundedTop {
+//                path.addLine(to: CGPoint(x: bar.maxX, y:bar.maxY))
+//            } else {
+//                path.addArc(center: CGPoint(x: bar.midX, y: bar.height), radius: bar.width / 2, startAngle: .degrees(180), endAngle: .degrees(0), clockwise: true)
+//            }
+//            path.addLine(to: CGPoint(x: bar.maxX, y:bar.minY))
+////            path.addLine(to:origin)
+//            path.closeSubpath()
+//
         }
         
         let transform = CGAffineTransform(scaleX: 1, y: -1)
@@ -52,7 +71,7 @@ struct GraphBar_Previews: PreviewProvider {
     
     static var previews: some View {
 
-        let graphData = GraphData.zeroDataSet
+        let graphData = GraphData.previewDataSet
         VStack {
             HStack {
                 VStack {
