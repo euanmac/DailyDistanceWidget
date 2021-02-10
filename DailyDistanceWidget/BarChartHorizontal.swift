@@ -11,33 +11,43 @@ struct BarChartHorizontal: View {
     
 
     @State var grow = false
+    @State var axisLabelScale: CGFloat = 1
+    @State var barPercent:CGFloat = 0
     let data: GraphData
+    let axisWidthRatio: CGFloat = 0.1
+    let categoryScale = ["00", "06", "12", "18"]
     
     var body: some View {
 
         VStack {
-            Button("Toggle") {grow.toggle()}
+            Button("Toggle") {barPercent = (barPercent == 1 ? 0 :1)}
 
             HStack {
                 GeometryReader {geo in
-                    HStack(spacing: 0){
-                        GraphValueAxis(data: data)
-                            .frame(width: geo.size.width * 0.075, height: geo.size.height, alignment: .trailing)
-                        ZStack {
-                            
-                            GraphBar(data: data)
-                                .trim(from: 0, to: grow ? 1 : 0 )
-                                .fill(Color.blue)
-                                .animation(.linear)
+                    VStack(alignment: .trailing, spacing: 0) {
+                        HStack(spacing: 0){
+                            GraphValueAxis(data: data, labelScale: $axisLabelScale)
+                                .frame(width: geo.size.width * axisWidthRatio, alignment: .trailing)
+                            ZStack {
                                 
-                            GraphPlotArea(data: data)
-                                .stroke(Color.gray, style: StrokeStyle(lineWidth: 1, dash: [2]))
+                                GraphPlotArea(data: data, categoryTicks: categoryScale.count)
+                                    .stroke(Color.gray, style: StrokeStyle(lineWidth: 1, dash: [2]))
+                                
+                                GraphBar(data: data, percent: barPercent)
+                                    .fill(Color.black)
+                                    .animation(.spring())
+                                    
+                            }
+                            
                         }
+                        GraphCategoryAxis(graphData: data, scale: categoryScale)
+                            .frame(width: geo.size.width * (1 - axisWidthRatio), height: 30, alignment: .trailing)
                     }
+                        
                 }
             }
             .onAppear {
-                grow = true
+                barPercent = 1
             }
         }
     }

@@ -96,14 +96,15 @@ extension GraphData {
         let startDate = Date().startOfDay
         var _data =  Array(0...23).map {GraphDatePoint(date: startDate.byAdding(hours: $0), value: 0)}
         
+        _data[0] = GraphDatePoint(date: startDate.byAdding(hours: 0), value: 3)
         _data[1] = GraphDatePoint(date: startDate.byAdding(hours: 1), value: 1)
         _data[2] = GraphDatePoint(date: startDate.byAdding(hours: 2), value:2.2)
         _data[3] = GraphDatePoint(date: startDate.byAdding(hours: 3), value: 3.5)
-        _data[5] = GraphDatePoint(date: startDate.byAdding(hours: 5), value: 6.2)
+        _data[6] = GraphDatePoint(date: startDate.byAdding(hours: 6), value: 6.2)
         _data[8] = GraphDatePoint(date: startDate.byAdding(hours: 8), value: 8.2)
         _data[10] = GraphDatePoint(date: startDate.byAdding(hours: 10), value: 11.3)
         _data[12] = GraphDatePoint(date: startDate.byAdding(hours: 12), value: 14.2)
-        _data[18] = GraphDatePoint(date: startDate.byAdding(hours: 18), value: 5.3)
+        _data[23] = GraphDatePoint(date: startDate.byAdding(hours: 23), value: 5.3)
         return GraphData(data: _data)
     }()
     

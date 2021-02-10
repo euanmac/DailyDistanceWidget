@@ -16,9 +16,11 @@ import SwiftUI
 struct GraphPlotArea: Shape {
 
     let graphData: GraphData
+    let categoryTicks: Int
     
-    init(data: GraphData) {
+    init(data: GraphData, categoryTicks: Int) {
         self.graphData = data
+        self.categoryTicks = categoryTicks
     }
         
     func path(in rect: CGRect) -> Path {
@@ -31,19 +33,23 @@ struct GraphPlotArea: Shape {
         
         let range = graphData.valueScaleMax - graphData.valueScaleMin
         let intHeight = range == 0 ? 0 : rect.height / CGFloat(range)
-        let intWidth = rect.width / CGFloat(graphData.data.count)
-        
+        let intWidth = rect.width / CGFloat(categoryTicks)
         
         for y in stride(from: graphData.valueScaleMin, through:((graphData.valueScaleMax)), by: graphData.valueTickSpacing) {
-            path.move(to: CGPoint(x: 0, y: intHeight * CGFloat(y)))
-            path.addLine(to: CGPoint(x: rect.width, y: intHeight * CGFloat(y)))
+            
+            //Ignore axis line
+            if y != graphData.valueScaleMax {
+                path.move(to: CGPoint(x: 0, y: intHeight * CGFloat(y)))
+                path.addLine(to: CGPoint(x: rect.width, y: intHeight * CGFloat(y)))
+            }
+            
         }
         
-//        for x in stride(from: 0, through:((range)), by: xInterval){
-//
-//            path.move(to: CGPoint(x: intWidth * CGFloat(x), y: 0))
-//            path.addLine(to: CGPoint(x: intWidth * CGFloat(x), y: rect.height))
-//        }
+        for x in (1...categoryTicks){
+
+            path.move(to: CGPoint(x: intWidth * CGFloat(x), y: 0))
+            path.addLine(to: CGPoint(x: intWidth * CGFloat(x), y: rect.height))
+        }
         
         return path
     }
@@ -83,7 +89,7 @@ struct GraphPlotArea_Previews: PreviewProvider {
                     Text("Tick \(graphData.valueTickSpacing)")
                 }
             }
-            GraphPlotArea(data: graphData)
+            GraphPlotArea(data: graphData, categoryTicks: 4)
                 .stroke(Color.black)
                 .frame(width: 200, height: 200)
         

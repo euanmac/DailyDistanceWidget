@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		BE5696842593AE8E00FB58B8 /* GraphValueAxis.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5696832593AE8E00FB58B8 /* GraphValueAxis.swift */; };
+		BE6BB01F25CCB346009208FC /* GraphCategoryAxis.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6BB01E25CCB346009208FC /* GraphCategoryAxis.swift */; };
 		BE76704E257069FD001287FC /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE76704D257069FD001287FC /* WidgetKit.framework */; };
 		BE767050257069FD001287FC /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE76704F257069FD001287FC /* SwiftUI.framework */; };
 		BE767053257069FD001287FC /* DailyDistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE767052257069FD001287FC /* DailyDistance.swift */; };
@@ -56,6 +57,7 @@
 
 /* Begin PBXFileReference section */
 		BE5696832593AE8E00FB58B8 /* GraphValueAxis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphValueAxis.swift; sourceTree = "<group>"; };
+		BE6BB01E25CCB346009208FC /* GraphCategoryAxis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphCategoryAxis.swift; sourceTree = "<group>"; };
 		BE76704C257069FD001287FC /* DailyDistanceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = DailyDistanceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE76704D257069FD001287FC /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		BE76704F257069FD001287FC /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
@@ -140,6 +142,7 @@
 				BEA9D5F925745C0200CD6936 /* DistanceQuery.swift */,
 				BEC9ABE1258366CA00399B71 /* GraphPlotArea.swift */,
 				BE5696832593AE8E00FB58B8 /* GraphValueAxis.swift */,
+				BE6BB01E25CCB346009208FC /* GraphCategoryAxis.swift */,
 				BEAEF82A258396D7005EDB54 /* GraphBar.swift */,
 				BEFFAC3F25A7015000C81AAF /* GraphSettings.swift */,
 				BE875EC025A48A8000C4FAC6 /* GraphData.swift */,
@@ -283,6 +286,7 @@
 				BEFFAC4025A7015000C81AAF /* GraphSettings.swift in Sources */,
 				BEA40E182565801200DE38DE /* ContentView.swift in Sources */,
 				BE5696842593AE8E00FB58B8 /* GraphValueAxis.swift in Sources */,
+				BE6BB01F25CCB346009208FC /* GraphCategoryAxis.swift in Sources */,
 				BEAEF82B258396D7005EDB54 /* GraphBar.swift in Sources */,
 				BEB0489D257C049B00A27A78 /* CumDistanceGraph.swift in Sources */,
 				BEC9ABE2258366CA00399B71 /* GraphPlotArea.swift in Sources */,

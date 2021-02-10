@@ -10,11 +10,13 @@ import SwiftUI
 struct GraphBar: Shape {
         
     let graphData: GraphData
-    let spacing: CGFloat = 2
+    let spacing: CGFloat = 4
     let rounded = true
+    private var percent: CGFloat
     
-    init(data: GraphData) {
+    init(data: GraphData, percent: CGFloat) {
         self.graphData = data
+        self.percent = percent
     }
 
 ///    Draw Bars as path for each data point in the Graph data
@@ -22,6 +24,10 @@ struct GraphBar: Shape {
 ///    -No graph data values at all
 ///    -All values are 0
 ///    -All values are the same
+    var animatableData: CGFloat {
+        get { percent }
+        set { self.percent = newValue }
+    }
     
     func path(in rect: CGRect) -> Path {
         
@@ -34,14 +40,15 @@ struct GraphBar: Shape {
 
         for (n, point) in graphData.data.enumerated() {
 
-            let origin = CGPoint(x: CGFloat(n) * (barWidth + spacing), y: 0)
+            let origin = CGPoint(x: CGFloat(n) * (barWidth + spacing) + (spacing / 2), y: 0)
             
             //Adjust bar height
-            let barHeight = max(0, barHeightPerUnit * CGFloat(point.value))
+            let barHeight = max(0, barHeightPerUnit * CGFloat(point.value)) * percent
 
             let bar = CGRect(origin: origin, size: CGSize(width: barWidth, height:barHeight))
             
             let rounding = rounded ? (bar.width * 0.3) : 0
+            
             path.addRoundedRect(in: bar, cornerSize: CGSize (width: rounding, height: rounding), style: .continuous, transform: .identity)
             
 //            path.move(to: bar.origin)
@@ -88,8 +95,9 @@ struct GraphBar_Previews: PreviewProvider {
                 }.frame(alignment: .top)
             }
             HStack {
-                GraphBar(data: graphData)
+                GraphBar(data: graphData, percent: 1)
                     .frame(width: 300, height: 300)
+                    .border(Color.red)
             }
 
         }

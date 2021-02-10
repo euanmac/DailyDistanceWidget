@@ -8,29 +8,21 @@
 import Foundation
 import SwiftUI
 
-extension VerticalAlignment {
-    struct CustomAlignment: AlignmentID {
-        static func defaultValue(in context: ViewDimensions) -> CGFloat {
-            return context[VerticalAlignment.center]
-        }
-    }
-
-    static let custom = VerticalAlignment(CustomAlignment.self)
-}
-
 struct GraphValueAxis: View {
     
-    @State var maxLabelWidth: CFloat = 0
-    @State var widthScale: CGFloat = 1
+    @Binding var widthScale: CGFloat
     @State var adjusted = false
+    @State var labelSizes = [Int: CGSize]()
+    
     let axisColour: Color
-
     let graphData: GraphData
     let scale: [String]
     
-    init(data: GraphData, axisColour: Color = .gray) {
+    init(data: GraphData, labelScale: Binding<CGFloat>, axisColour: Color = .gray) {
         self.graphData = data
+        self._widthScale = labelScale
         self.axisColour = axisColour
+        
         
         //Init an array containing the scale valuesx
         let scaleValues = stride(from: graphData.valueScaleMin, through:((graphData.valueScaleMax)), by: graphData.valueTickSpacing).reversed().map( {$0})
@@ -51,17 +43,6 @@ struct GraphValueAxis: View {
     
     var body: some View {
         
-//        HStack(alignment: .custom) {
-//                    Image(systemName: "star")
-//                    VStack(alignment: .leading) {
-//                        Text("T")
-//                        Text("P")
-//                        Text("L")
-//                        Text("M")
-//                            .alignmentGuide(.custom) { $0[VerticalAlignment.center] }
-//                    }
-//                }
-
             HStack(spacing: 1) {
 
                 GeometryReader {geo in
@@ -70,33 +51,34 @@ struct GraphValueAxis: View {
                         ForEach(scale.indices, id: \.self) {scaleIndex in
                             
                             Text(scale[scaleIndex])
-                                .border(Color.black)
+                                .font(.caption2)
+                                //.border(Color.black)
                                 .lineLimit(1)
                                 .fixedSize(horizontal: true, vertical: true)
-//                                .minimumScaleFactor(0.2)
                                 .anchorPreference(key: SizePreferenceKey.self, value: .bounds, transform: {
                                         [scaleIndex: geo[$0].size] }
                                 )
                                 .anchorPreference(key: ScaleWidthPreferenceKey.self, value: .bounds, transform: {
-                                        [scaleIndex: geo[$0].size] }
+                                        geo[$0].size.width }
                                 )
                                 .scaleEffect(widthScale)
-                                .position(x: geo.size.width / 2, y: (divZeroHeight(height: geo.size.height, scaleSize: scale.count - 1) * CGFloat(scaleIndex)))
-                            
+                                .position(x: rightAlignment(labelIndex: scaleIndex, totalWidth: geo.size.width ), y: (divZeroHeight(height: geo.size.height, scaleSize: scale.count - 1) * CGFloat(scaleIndex)))
+
                         }
 
 
                     }
 
 
-                    .onPreferenceChange(SizePreferenceKey.self) { prefs in
-                            if !adjusted {
-                                if let maxWidth = prefs.map {$1.width} .max(by: <) {
-                                    widthScale =  (geo.size.width / maxWidth)
-                                    adjusted = true
-                                }
-                            }
-
+                    .onPreferenceChange(SizePreferenceKey.self) { sizes in
+                        labelSizes = sizes
+                    }
+                    
+                    .onPreferenceChange(ScaleWidthPreferenceKey.self) { maxWidth in
+                        if !adjusted {
+                            widthScale = min(CGFloat(1), geo.size.width / maxWidth)
+                            adjusted = true
+                        }
                     }
                 }
 
@@ -109,6 +91,14 @@ struct GraphValueAxis: View {
 
     }
     
+    func rightAlignment(labelIndex: Int, totalWidth: CGFloat) -> CGFloat {
+        guard let size = labelSizes[labelIndex] else {
+            return CGFloat.zero
+        }
+        
+        return totalWidth - (size.width / CGFloat(2))
+    }
+    
     func tickHeight(totalHeight: CGFloat) -> Float {
         return 0
         //totalHeight / graphData
@@ -117,7 +107,7 @@ struct GraphValueAxis: View {
 
 
 struct GraphAxis_Previews: PreviewProvider {
-        
+    @State static var scale: CGFloat = 1
     static var previews: some View {
         let graphData = GraphData.largeDataValue
         VStack {
@@ -136,7 +126,7 @@ struct GraphAxis_Previews: PreviewProvider {
                 }.frame(alignment: .top)
             }
             HStack {
-                GraphValueAxis(data: graphData)
+                GraphValueAxis(data: graphData, labelScale: $scale)
                     .frame(width: 100 * 0.5, height: 300)
                     .border(Color.red)
                 
