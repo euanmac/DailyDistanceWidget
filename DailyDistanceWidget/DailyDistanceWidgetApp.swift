@@ -11,7 +11,7 @@ import SwiftUI
 struct DailyDistanceWidgetApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            CounterPreview()
         }
     }
 }

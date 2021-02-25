@@ -43,7 +43,10 @@ struct GraphData {
     }
     
     var valueScaleMax: Double {
-        (maxValue / valueTickSpacing).rounded(.up) * valueTickSpacing
+         guard minValue != 0 || maxValue != 0 else {
+            return 1
+        }
+        return (maxValue / valueTickSpacing).rounded(.up) * valueTickSpacing
     }
     
     
@@ -129,7 +132,7 @@ extension GraphData {
         return GraphData(data: _data)
     }()
     
-    static var largeDataValue: GraphData = {
+    static var largeDataValue   : GraphData = {
         let startDate = Date().startOfDay
         var _data =  Array(0...23).map {GraphDatePoint(date: startDate.byAdding(hours: $0), value: 0)}
         

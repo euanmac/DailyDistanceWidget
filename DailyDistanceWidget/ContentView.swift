@@ -57,8 +57,7 @@ struct ContentView: View {
                                         Text(stat.distance.description)
                                     }
                                 }
-                                CumDistanceGraph(dayDistancesByDate: distanceStats)
-                                    .frame(width: 300, height: 300)
+ 
                                 BarChartHorizontal(data: graphData(hkStats: distanceStats))
                                     .frame(width: 300, height: 300)
                             }

@@ -10,9 +10,8 @@ import SwiftUI
 struct BarChartHorizontal: View {
     
 
-    @State var grow = false
     @State var axisLabelScale: CGFloat = 1
-    @State var barPercent:CGFloat = 0
+    @State var barPercent:CGFloat = 0.5
     let data: GraphData
     let axisWidthRatio: CGFloat = 0.1
     let categoryScale = ["00", "06", "12", "18"]
@@ -56,7 +55,7 @@ struct BarChartHorizontal: View {
 struct BarChartHorizontal_Previews: PreviewProvider {
     
     static var previews: some View {
-        let graphData = GraphData.previewDataSet
+        let graphData = GraphData.negativeValues
         VStack {
             HStack {
                 VStack {

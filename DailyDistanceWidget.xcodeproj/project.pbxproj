@@ -25,6 +25,7 @@
 		BEA40E282565820F00DE38DE /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEA40E272565820F00DE38DE /* HealthKit.framework */; };
 		BEA9D5FA25745C0200CD6936 /* DistanceQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA9D5F925745C0200CD6936 /* DistanceQuery.swift */; };
 		BEA9D5FB25745C0200CD6936 /* DistanceQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA9D5F925745C0200CD6936 /* DistanceQuery.swift */; };
+		BEAD4DB725D824270094509B /* AnalogCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAD4DB625D824260094509B /* AnalogCounter.swift */; };
 		BEAEF82B258396D7005EDB54 /* GraphBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAEF82A258396D7005EDB54 /* GraphBar.swift */; };
 		BEB0489D257C049B00A27A78 /* CumDistanceGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB0489C257C049B00A27A78 /* CumDistanceGraph.swift */; };
 		BEC9ABE2258366CA00399B71 /* GraphPlotArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC9ABE1258366CA00399B71 /* GraphPlotArea.swift */; };
@@ -76,6 +77,7 @@
 		BEA40E252565820F00DE38DE /* DailyDistanceWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DailyDistanceWidget.entitlements; sourceTree = "<group>"; };
 		BEA40E272565820F00DE38DE /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		BEA9D5F925745C0200CD6936 /* DistanceQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceQuery.swift; sourceTree = "<group>"; };
+		BEAD4DB625D824260094509B /* AnalogCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalogCounter.swift; sourceTree = "<group>"; };
 		BEAEF82A258396D7005EDB54 /* GraphBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphBar.swift; sourceTree = "<group>"; };
 		BEB0489C257C049B00A27A78 /* CumDistanceGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CumDistanceGraph.swift; sourceTree = "<group>"; };
 		BEC9ABE1258366CA00399B71 /* GraphPlotArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphPlotArea.swift; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 				BEA40E252565820F00DE38DE /* DailyDistanceWidget.entitlements */,
 				BEA40E152565801200DE38DE /* DailyDistanceWidgetApp.swift */,
 				BEA40E172565801200DE38DE /* ContentView.swift */,
+				BEAD4DB625D824260094509B /* AnalogCounter.swift */,
 				BEA9D5F925745C0200CD6936 /* DistanceQuery.swift */,
 				BEC9ABE1258366CA00399B71 /* GraphPlotArea.swift */,
 				BE5696832593AE8E00FB58B8 /* GraphValueAxis.swift */,
@@ -288,6 +291,7 @@
 				BE5696842593AE8E00FB58B8 /* GraphValueAxis.swift in Sources */,
 				BE6BB01F25CCB346009208FC /* GraphCategoryAxis.swift in Sources */,
 				BEAEF82B258396D7005EDB54 /* GraphBar.swift in Sources */,
+				BEAD4DB725D824270094509B /* AnalogCounter.swift in Sources */,
 				BEB0489D257C049B00A27A78 /* CumDistanceGraph.swift in Sources */,
 				BEC9ABE2258366CA00399B71 /* GraphPlotArea.swift in Sources */,
 				BE76705925706A00001287FC /* DailyDistance.intentdefinition in Sources */,
