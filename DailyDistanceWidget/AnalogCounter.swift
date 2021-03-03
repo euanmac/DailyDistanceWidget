@@ -28,10 +28,10 @@ struct CounterPreview: View {
                     }
                 }
 
-                MyButton(label: "29.8", font: .headline) {
+                MyButton(label: "+0.2", font: .headline) {
                     withAnimation(Animation.spring()) {
 //                    withAnimation(Animation.interpolatingSpring(mass: 0.1, stiffness: 1, damping: 0.4, initialVelocity: 0.2)) {
-                        self.number = 29.8
+                        self.number += 0.2
                     }
                 }
 
@@ -65,7 +65,7 @@ struct CounterPreview: View {
 
 struct AnalogCounter: View {
     let number: Double
-    let decimals: Int = 1
+    let decimals: Int = 2
     let integers: Int = 3
     
     var body: some View {
@@ -89,20 +89,42 @@ struct AnalogCounter: View {
 
             let font = Font.custom("Courier New", size: 34).bold()
             
-            let split = modf(number)
-            
-            
             let u = Int(number) % 10
             let t = Int(number / 10) % 10
             let h = Int(number / 100) % 10
             
-            var decimalReels = Array(repeating: CounterReel(digit: u, isFraction: false), count: decimals)
-            var integerReels = Array(repeating: CounterReel(digit: u, isFraction: true), count: integers)
-                   
-            var counterReels = Array(repeating: CounterReel(digit: u, isFraction: false), count: integers)
-            counterReels += Array(repeating: CounterReel(digit: u, isFraction: true), count: decimals)
+            //Convert number to two arrays of ints
+            //Tuple to track whether integer or not - integer = true
+            let integerReels = (0..<integers).reversed().map { (Int(Double(number) / (pow(Double(10.0), Double($0)))) % 10, false) }
+            let decimalReels = (1...decimals).map { (Int(Double(number) / pow(Double(10), Double($0) * -1.0)) % 10, true) }
             
+            let digits = ((decimals * -1)..<integers).map  { (digit: Int(Double(number) / (pow(Double(10.0), Double($0)))) % 10, isFraction: $0 < 0)}
+
             
+            //Calculate offset for last reel
+            let rounded = Int(Double(number) / pow(Double(10), Double(2) * -1.0))
+            let unrounded = Double(number) / pow(Double(10), Double(2) * -1.0)
+            var offset = CGFloat(unrounded - Double(rounded)) * -1
+            
+//            let reels = (integerReels.map {CounterReel(digit: $0.0, isFraction: false)})  + (decimalReels.map {CounterReel(digit: $0.0, isFraction: true)})
+            
+//            let reels = [CounterReel(digit: digits[0].digit, isFraction: digits[0].isFraction, offset: offset)]
+            
+            //let r = digits.reduce(<#T##initialResult: Result##Result#>, <#T##nextPartialResult: (Result, (digit: Int, isFraction: Bool)) throws -> Result##(Result, (digit: Int, isFraction: Bool)) throws -> Result#>)
+            
+//            let  reels = digits.enumerated().map {(index, element) in
+////                if index == reels.count - 1
+//                return CounterReel(digit: element.digit, isFraction: element.isFraction, offset: index == digits.count - 1 ? offset : 0)
+//
+//            }
+            //let firstReel = CounterReel(digit: digits[, isFraction: <#T##Bool#>, offset: <#T##CGFloat#>)
+            let reels = digits.reduce(([CounterReel](), offset)) {acc, digit in
+                let previousDigit = acc.0.last?.digit ?? 9
+                let currentOffset = previousDigit == 9 ? acc.1 : 0
+                //let reelOffs
+                return (acc.0 + [CounterReel(digit: digit.digit, isFraction: digit.isFraction, offset: currentOffset)], currentOffset)
+            }.0.reversed()
+                
 //            for (index, item) in decimalReels.enumerated() {
 //                decimalReels[index] =
 //            }
@@ -113,14 +135,19 @@ struct AnalogCounter: View {
             let tReel = CounterReel(digit: t, isFraction: true)
             let hReel = CounterReel(digit: h, isFraction: false)
             
-            let uOffset = CGFloat(-1) * (CGFloat(number) - CGFloat(Int(number)))
-            let tOffset = u == 9 ? uOffset : 0
-            let hOffset = t == 9 ? tOffset : 0
+            //let offset = CGFloat(-1) * (CGFloat(number) - CGFloat(Int(number)))
+        
+//            let tOffset = u == 9 ? uOffset : 0
+//            let hOffset = t == 9 ? tOffset : 0
+            //var currentOffset =
             
             return HStack(alignment: .top, spacing: 1) {
-                CounterReelView(counterReel: hReel, font: font, hOffset: hOffset)
-                CounterReelView(counterReel: tReel, font: font, hOffset: tOffset)
-                CounterReelView(counterReel: uReel, font: font, hOffset: uOffset)
+          
+                ForEach(reels, id: \.self) {reel in
+                    CounterReelView(counterReel: reel, font: font)
+                }
+            
+                
             }
             .background(Color.black)
             .clipShape(ClipShape(a: "Clip"))
@@ -216,18 +243,20 @@ struct MyButton: View {
     }
 }
 
-struct CounterReel {
+struct CounterReel: Hashable {
     
     private static let fullReel = [8,9,0,1,2,3,4,5,6,7,8,9,0,1]
     
     let digit: Int
     let isFraction: Bool
     let reel: [Int]
+    let offset: CGFloat
     
-    init (digit: Int, isFraction: Bool) {
+    init (digit: Int, isFraction: Bool, offset: CGFloat = .zero) {
         self.digit = digit
         self.isFraction = isFraction
         self.reel = Array(CounterReel.fullReel[digit...digit+4])
+        self.offset = offset
     }
 }
 
@@ -235,7 +264,6 @@ struct CounterReelView: View {
     
     let counterReel: CounterReel
     let font: Font
-    let hOffset: CGFloat
     
     var body: some View {
         ZStack {
@@ -247,7 +275,7 @@ struct CounterReelView: View {
                 Text("\(counterReel.reel[4])").font(font)
             }
             .padding(.horizontal, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
-            .foregroundColor(counterReel.isFraction ? .black : .white).modifier(ShiftEffect(pct: hOffset))
+            .foregroundColor(counterReel.isFraction ? .black : .white).modifier(ShiftEffect(pct: counterReel.offset))
         }
         .background(Rectangle().fill(LinearGradient(gradient: gradient, startPoint: .top, endPoint: .bottom)))
     }
